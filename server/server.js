@@ -9,6 +9,17 @@ var app = express();
 
 app.use(bodyParser.json());
 
+app.get('/todos', (req, res) => {
+    Todo.find().then((todos) => {
+        res.send({
+            todos
+        });
+    }, (e) => {
+         console.log('Unable to get todos');
+         res.status(400).send(e);
+     });
+});
+
 app.post('/todos', (req, res)=>{
     var todo = new Todo({
         text: req.body.text
@@ -16,7 +27,7 @@ app.post('/todos', (req, res)=>{
 
      todo.save().then((doc) => {
          console.log('Saved todo', todo);
-         res.send(doc);
+         res.send(doc); 
      }, (e) => {
          console.log('Unable to save todo');
          res.status(400).send(e);
