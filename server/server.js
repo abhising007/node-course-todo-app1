@@ -40,6 +40,25 @@ app.get('/todos/:id', (req, res) => {
     });
 });
 
+// delete by id
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    if(!id || !ObjectId.isValid(id)) {
+        console.log('Id not valid');
+        res.status(404).send('Id not valid');
+    }
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo){
+            return res.status(404).send();
+        }
+        res.status(200).send({todo});
+    }).catch((e) => {
+        res.status(400).send('')
+    });
+});
+
+
+
 app.post('/todos', (req, res)=>{
     var todo = new Todo({
         text: req.body.text
