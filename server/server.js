@@ -6,6 +6,8 @@ var {mongoose}  = require('./db/mongoose.js');
 var {Todo} = require('./models/todo.js');
 var {User} = require('./models/user.js');
 
+const port = process.env.PORT || 3000; // default to port 3000 for running locally.Otherwise use heroku port. 
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -53,8 +55,8 @@ app.post('/todos', (req, res)=>{
     // console.log(req, res);
 });
 
-app.listen(3000, ()=>{
-    console.log('Server is up');
+app.listen(port, ()=>{
+    console.log(`Server is up at ${port}`);
 });
 
 module.exports = {
