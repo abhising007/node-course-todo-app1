@@ -23,8 +23,8 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
     });
 
 
-    db.collection('Users').findOneAndUpdate({
-        _id:new ObjectID('58f480de8c29120cece14efe')
+    db.collection('users').findOneAndUpdate({
+        _id:new ObjectID('5991bc1df0283736ace07026')
     },
     {
         $set : {
@@ -40,5 +40,5 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
         console.log('Result ', result);
     });
 
-    // db.close();
+     db.close();
 });
