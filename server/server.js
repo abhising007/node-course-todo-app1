@@ -1,5 +1,6 @@
 require('./config/config');
 
+
 const port = process.env.PORT;
 const _ = require('lodash');
 const express = require('express');
@@ -9,6 +10,7 @@ const {ObjectId}=require('mongodb');
 var {mongoose}  = require('./db/mongoose.js');
 var {Todo} = require('./models/todo.js');
 var {User} = require('./models/user.js');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 
@@ -124,6 +126,12 @@ app.post('/users', (req, res)=>{
          console.log('Unable to save user');
          res.status(400).send(e);
      });
+});
+
+
+// call middleware
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
 });
 
 
