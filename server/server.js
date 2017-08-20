@@ -1,3 +1,6 @@
+require('./config/config');
+
+const port = process.env.PORT;
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,8 +9,6 @@ const {ObjectId}=require('mongodb');
 var {mongoose}  = require('./db/mongoose.js');
 var {Todo} = require('./models/todo.js');
 var {User} = require('./models/user.js');
-
-const port = process.env.PORT || 3000; // default to port 3000 for running locally.Otherwise use heroku port. 
 
 var app = express();
 
