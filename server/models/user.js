@@ -40,6 +40,18 @@ UserSchema.methods.toJSON = function() {
     return _.pick(userObject, ['_id', 'email']);
 };
 
+
+UserSchema.methods.removeToken = function(token) {
+    var user = this;
+    return user.update({
+        $pull:{
+            tokens: { // pull from tokens array
+                token // if token matches, then token element is removed from tokens array
+            }
+        }
+    });
+};
+
 // can't use => function as it doesn't bind 'this' keyword needed
 UserSchema.methods.generateAuthToken = function() {
     var user = this;
