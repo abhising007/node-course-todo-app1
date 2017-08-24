@@ -56,7 +56,7 @@ UserSchema.methods.removeToken = function(token) {
 UserSchema.methods.generateAuthToken = function() {
     var user = this;
     var access = 'auth';
-    var token = jwt.sign({_id: user._id.toHexString(), access}, 'somescrete').toString();
+    var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRETE).toString();
   
     user.tokens.push({access,token});
     return user.save().then(() => {
@@ -70,7 +70,7 @@ UserSchema.statics.findByToken = function(token) {
     var decoded;
 
     try {
-        decoded = jwt.verify(token, 'somescrete');
+        decoded = jwt.verify(token, process.env.JWT_SECRETE);
     } catch (e) {
         return Promise.reject();
     }

@@ -8,8 +8,8 @@ const {Todo} = require('./../models/todo');
 const {User} = require('./../models/user');
 const {testTodos, populateTodos, users, populateUsers} = require('./data/seed');
 
-beforeEach(populateTodos);
 beforeEach(populateUsers);
+beforeEach(populateTodos);
 
 describe ('/GET /todos', ()=>{
     it('should get all todos', (done) => {
@@ -221,6 +221,7 @@ describe('GET /users/me', () => {
         })
         .end(done);
     });
+
     it('should return a 401 if not authenticated', (done) =>{
         request(app)
         .get('/users/me')
